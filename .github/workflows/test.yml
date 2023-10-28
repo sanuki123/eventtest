@@ -28,7 +28,7 @@ jobs:
           )
           echo $PR
           PR_EXISTS=$(echo "$PRs" | jq -r '. | length > 0')
-          echo $ PR_EXISTS
+          echo $PR_EXISTS
 
 
   #静的解析
