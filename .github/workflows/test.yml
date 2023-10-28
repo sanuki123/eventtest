@@ -21,7 +21,8 @@ jobs:
           echo "${{github.ref}}"
           echo "$GITHUB_REF"
           curl \
-            -H "Accept: application/vnd.github.v4+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
             -s \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME"
   
