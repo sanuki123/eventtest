@@ -10,18 +10,23 @@ on:
 
 jobs:
 
+  #pull_requestの確認
   job1:
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "job1"
+          echo "${{github.ref_name}}"
+          echo "${{github.ref}}"
 
+  #静的解析
   job2:
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "job2"
 
+  #デプロイ
   job3:
     runs-on: ubuntu-latest
     steps:
