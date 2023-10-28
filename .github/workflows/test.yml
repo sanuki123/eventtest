@@ -27,6 +27,8 @@ jobs:
               "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
           )
           echo $PR
+          PR_EXISTS=$(echo "$PRs" | jq -r '. | length > 0')
+          echo $ PR_EXISTS
 
 
   #静的解析
