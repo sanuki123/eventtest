@@ -16,9 +16,8 @@ jobs:
     steps:
       - run: |
           echo "job1"
-          echo "${{github.ref_name}}"
+          echo "$GITHUB_REPOSITORY"
           echo "$GITHUB_REF_NAME"
-          echo "${{github.ref}}"
           echo "$GITHUB_REF"
           curl \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
