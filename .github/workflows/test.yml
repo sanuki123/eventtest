@@ -17,7 +17,9 @@ jobs:
       - run: |
           echo "job1"
           echo "${{github.ref_name}}"
+          echo "$GITHUB_REF_NAME"
           echo "${{github.ref}}"
+          echo "$GITHUB_REF"
 
   #静的解析
   job2:
