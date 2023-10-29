@@ -42,6 +42,7 @@ jobs:
                 -H "Accept: application/vnd.github.v3+json" \
                 "xxxhttps://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
             )
+            echo "★★"
             echo $PR >> $GITHUB_STEP_SUMMARY
             
             if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
@@ -51,7 +52,7 @@ jobs:
             else
 
               # 配列ではない場合(正しくプルリクが取得できていない)
-              echo "★★$PR"
+              echo "$PR"
               exit 1
             fi
             
