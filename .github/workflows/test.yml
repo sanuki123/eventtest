@@ -13,8 +13,14 @@ jobs:
   #pull_requestの確認
   job1:
     runs-on: ubuntu-latest
+    
+    outputs:
+      pr_exists: ${{ steps.step1.outputs.pr_exists }}
+      
     steps:
-      - run: |
+      - 
+        id: step1
+        run: |
           echo "job1"
           echo "$GITHUB_REPOSITORY"
           echo "$GITHUB_REF_NAME"
@@ -32,7 +38,7 @@ jobs:
           )
           echo $PR
           PR_EXISTS=$(echo "$PR" | jq -r '. | length > 0')
-          echo $PR_EXISTS
+          echo "pr_exists=$PR_EXISTS" >> $GITHUB_OUTPUT
 
 
   #静的解析
@@ -42,6 +48,7 @@ jobs:
     steps:
       - run: |
           echo "job2"
+          echo "${{needs.job1.outputs.pr_exists}}"
 
   #デプロイ
   job3:
