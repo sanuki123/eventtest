@@ -14,6 +14,8 @@ jobs:
   #pull_requestの存在確認
   job1:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     
     outputs:
       run_ci: ${{ steps.step1.outputs.run_ci }}
@@ -49,6 +51,7 @@ jobs:
             else
 
               # 配列ではない場合(正しくプルリクが取得できていない)
+              echo "$PR"
               exit 1
             fi
             
