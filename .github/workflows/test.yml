@@ -21,13 +21,15 @@ jobs:
       - 
         id: step1
         run: |
+          echo "------------------------------------------"
           echo "job1"
-          echo "$GITHUB_REPOSITORY"
-          echo "$GITHUB_REF"
-          echo "$GITHUB_REF_NAME"
-
-          echo "$GITHUB_EVENT_NAME"
-          echo "${{github.event.action}}"
+          echo "GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
+          echo "GITHUB_REF        = $GITHUB_REF"
+          echo "GITHUB_REF_NAME   = $GITHUB_REF_NAME"
+          echo "------------------------------------------"
+          echo "GITHUB_EVENT_NAME   = $GITHUB_EVENT_NAME"
+          echo "github.event.action = ${{github.event.action}}"
+          echo "------------------------------------------"
           
           if [[ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]]; then
             
@@ -60,7 +62,7 @@ jobs:
           fi
           
           echo "run_ci=$RUN_CI" >> $GITHUB_OUTPUT
-          echo "<<<$RUN_CI>>>"
+          echo "run_ci=<<<$RUN_CI>>>"
 
           #PR_EXISTS=$(echo "$PR" | jq -r '. | length > 0')
           #echo "pr_exists=$PR_EXISTS" >> $GITHUB_OUTPUT
