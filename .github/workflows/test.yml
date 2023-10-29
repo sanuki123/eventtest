@@ -40,10 +40,8 @@ jobs:
               curl \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                "xxxhttps://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
+                "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
             )
-            echo "★★"
-            echo $PR >> $GITHUB_STEP_SUMMARY
             
             if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
 
