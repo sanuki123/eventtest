@@ -6,6 +6,7 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronized, repoened]
     
 
 jobs:
@@ -33,40 +34,32 @@ jobs:
           
           if [[ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]]; then
             
-            echo "★1"
-            
             PR=$(\
               curl \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                -s \
                 "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
             )
             echo $PR
             
             if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
-              echo "●1"
+
               # 配列の場合、要素数が0かどうかをチェック
               RUN_CI=$(echo "$PR" | jq -r 'if . | length == 0 then true else false end')
             else
-              echo "●2"
+
               # 配列ではない場合(正しくプルリクが取得できていない)
               exit 1
             fi
             
           else
           
-            echo "★2"
             RUN_CI="true"
           
           fi
           
           echo "run_ci=$RUN_CI" >> $GITHUB_OUTPUT
           echo "run_ci=<<<$RUN_CI>>>"
-
-          #PR_EXISTS=$(echo "$PR" | jq -r '. | length > 0')
-          #echo "pr_exists=$PR_EXISTS" >> $GITHUB_OUTPUT
-
 
   #静的解析
   job2:
