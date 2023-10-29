@@ -28,6 +28,7 @@ jobs:
             
             PR=$(\
               curl \
+                -sS
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
                 "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
