@@ -44,7 +44,7 @@ jobs:
   #静的解析
   job2:
     needs: job1
-#    if: needs.job1.outputs.pr_exists == 'true'
+    if: needs.job1.outputs.pr_exists == 'true'
     uses: ./.github/workflows/ci.yml
 
 #  job2:
