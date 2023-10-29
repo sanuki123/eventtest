@@ -29,8 +29,10 @@ jobs:
           echo "$GITHUB_EVENT_NAME"
           echo "${{github.event.action}}"
           
-          if [ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]; then
-          
+          if [[ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]]; then
+            
+            echo "★1"
+            
             PR=$(\
               curl \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -41,15 +43,18 @@ jobs:
             echo $PR
             
             if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
+              echo "●1"
               # 配列の場合、要素数が0かどうかをチェック
               RUN_CI=$(echo "$PR" | jq -r 'if . | length == 0 then true else false end')
             else
+              echo "●2"
               # 配列ではない場合(正しくプルリクが取得できていない)
               exit 1
             fi
             
           else
           
+            echo "★2"
             RUN_CI="true"
           
           fi
