@@ -1,0 +1,13 @@
+name: ci
+
+on:
+  workflow_call:
+
+jobs:
+  myjob:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "CIが呼ばれました"
+      
+
