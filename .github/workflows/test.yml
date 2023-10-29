@@ -55,7 +55,7 @@ jobs:
           fi
           
           echo "run_ci=$RUN_CI" >> $GITHUB_OUTPUT
-
+          echo "<<<$RUN_CI>>>"
 
           #PR_EXISTS=$(echo "$PR" | jq -r '. | length > 0')
           #echo "pr_exists=$PR_EXISTS" >> $GITHUB_OUTPUT
