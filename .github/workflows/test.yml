@@ -14,6 +14,8 @@ jobs:
   #pull_requestの存在確認
   job1:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     
     outputs:
       run_ci: ${{ steps.step1.outputs.run_ci }}
@@ -22,33 +24,28 @@ jobs:
       - 
         id: step1
         run: |
-          echo "------------------------------------------"
-          echo "job1"
-          echo "GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
-          echo "GITHUB_REF        = $GITHUB_REF"
-          echo "GITHUB_REF_NAME   = $GITHUB_REF_NAME"
-          echo "------------------------------------------"
-          echo "GITHUB_EVENT_NAME   = $GITHUB_EVENT_NAME"
-          echo "github.event.action = ${{github.event.action}}"
-          echo "------------------------------------------"
-          
           if [[ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]]; then
             
             PR=$(\
               curl \
+                -sS \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
-                "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
+                "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
             )
-            echo $PR >> $GITHUB_STEP_SUMMARY
-            
-            if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
+
+            #if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
+            if echo "$PR" | jq -e 'type == "array"'; then
 
               # 配列の場合、要素数が0かどうかをチェック
-              RUN_CI=$(echo "$PR" | jq -r 'if . | length == 0 then true else false end')
+              #RUN_CI=$(echo "$PR" | jq -r 'if . | length == 0 then true else false end')
+              RUN_CI=$(echo "$PR" | jq 'length == 0')
+
             else
 
               # 配列ではない場合(正しくプルリクが取得できていない)
+              echo "pullsの結果が配列以外だった"
+              echo "$PR"
               exit 1
             fi
             
@@ -59,7 +56,7 @@ jobs:
           fi
           
           echo "run_ci=$RUN_CI" >> $GITHUB_OUTPUT
-          echo "run_ci=<<<$RUN_CI>>>"
+          echo "run_ci=<$RUN_CI>"
 
 
   #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
