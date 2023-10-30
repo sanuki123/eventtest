@@ -40,7 +40,13 @@ jobs:
             echo "★2"
             echo "$PR"
 
-            if echo "$PR" | jq -e 'type == "array"'; then
+            if echo "$PR" | jq . >/dev/null 2>&1; then
+            
+              echo "なんかJSONじゃない"
+              echo "$PR"
+              exit 1
+            
+            elif echo "$PR" | jq -e 'type == "array"'; then
 
             echo "★3"
 
@@ -49,12 +55,13 @@ jobs:
 
             else
 
-            echo "★4"
+              echo "★4"
             
               # 配列ではない場合(正しくプルリクが取得できていない)
               echo "pullsの結果が配列以外だった"
               echo "$PR"
               exit 1
+              
             fi
             
           else
