@@ -35,6 +35,7 @@ jobs:
             
             PR=$(\
               curl \
+                -v \
                 -sS \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                 -H "Accept: application/vnd.github.v3+json" \
