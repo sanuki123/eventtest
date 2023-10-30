@@ -41,13 +41,7 @@ jobs:
             echo "★2"
             echo "$PR"
 
-            if echo "$PR" | jq . >/dev/null 2>&1; then
-            
-              echo "なんかJSONじゃない"
-              echo "$PR"
-              exit 1
-            
-            elif echo "$PR" | jq -e 'type == "array"'; then
+            if echo "$PR" | jq -e 'type == "array"'; then
 
             echo "★3"
 
