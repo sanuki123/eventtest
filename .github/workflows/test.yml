@@ -35,7 +35,7 @@ jobs:
             )
             
             #後で消す
-            echo "$PR" | jq 'type == "array"'
+            echo "arrayチェック=$(echo "$PR" | jq 'type == "array"')"
             
             #if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
             if echo "$PR" | jq 'type == "array"'; then
