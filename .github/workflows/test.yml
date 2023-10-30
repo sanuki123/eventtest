@@ -41,10 +41,8 @@ jobs:
             echo "★2"
             echo "$PR"
 
-            if echo "$PR" | jq -e 'type == "array"'; then
-
-            echo "★3"
-
+            if echo "$PR" | jq . >/dev/null && echo "$PR" | jq -e 'type == "array"'; then
+ 
               # 配列の場合、要素数が0かどうかをチェック
               RUN_CI=$(echo "$PR" | jq 'length == 0')
 
