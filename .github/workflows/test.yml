@@ -41,8 +41,10 @@ jobs:
             echo "★2"
             echo "$PR"
 
-            if echo "$PR" | jq . >/dev/null && echo "$PR" | jq -e 'type == "array"'; then
+            if echo "$PR" | jq . >/dev/null 2>&1 && echo "$PR" | jq -e 'type == "array"'; then
  
+              echo "★4
+              
               # 配列の場合、要素数が0かどうかをチェック
               RUN_CI=$(echo "$PR" | jq 'length == 0')
 
@@ -50,8 +52,8 @@ jobs:
 
               echo "★4"
             
-              # 配列ではない場合(正しくプルリクが取得できていない)
-              echo "pullsの結果が配列以外だった"
+              # JOSN形式でないもしくは配列ではない場合(正しくプルリクが取得できていない)
+              echo "pullsの結果がJSON以外もしくは配列以外だった"
               echo "$PR"
               exit 1
               
