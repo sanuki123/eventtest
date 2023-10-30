@@ -36,7 +36,7 @@ jobs:
             echo $PR
             
             #if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
-            if echo "$PR" | jq 'type == "array"'; then
+            if echo "$PR" | jq -e 'type == "array"'; then
 
               echo "★★"
               # 配列の場合、要素数が0かどうかをチェック
