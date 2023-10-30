@@ -34,6 +34,9 @@ jobs:
                 "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
             )
             
+            #後で消す
+            echo "$PR" | jq 'type == "array"'
+            
             #if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
             if echo "$PR" | jq 'type == "array"'; then
 
