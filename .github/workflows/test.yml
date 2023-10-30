@@ -49,7 +49,7 @@ jobs:
 
             else
 
-            echo "★4
+            echo "★4"
             
               # 配列ではない場合(正しくプルリクが取得できていない)
               echo "pullsの結果が配列以外だった"
@@ -59,17 +59,17 @@ jobs:
             
           else
           
-            echo "★5
+            echo "★5"
             RUN_CI="true"
           
           fi
           
-          echo "★6
+          echo "★6"
           
           echo "run_ci=$RUN_CI" >> $GITHUB_OUTPUT
           echo "run_ci=<$RUN_CI>"
 
-          echo "★7
+          echo "★7"
 
   #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
   #静的解析
