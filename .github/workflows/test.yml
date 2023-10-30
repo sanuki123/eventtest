@@ -26,6 +26,8 @@ jobs:
         run: |
           if [[ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]]; then
             
+            echo "★1"
+            
             PR=$(\
               curl \
                 -sS \
@@ -34,15 +36,20 @@ jobs:
                 "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&head=$GITHUB_REPOSITORY:$GITHUB_REF_NAME" \
             )
 
-            #if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
+            echo "★2"
+            echo "$PR"
+
             if echo "$PR" | jq -e 'type == "array"'; then
 
+            echo "★3"
+
               # 配列の場合、要素数が0かどうかをチェック
-              #RUN_CI=$(echo "$PR" | jq -r 'if . | length == 0 then true else false end')
               RUN_CI=$(echo "$PR" | jq 'length == 0')
 
             else
 
+            echo "★4
+            
               # 配列ではない場合(正しくプルリクが取得できていない)
               echo "pullsの結果が配列以外だった"
               echo "$PR"
@@ -51,13 +58,17 @@ jobs:
             
           else
           
+            echo "★5
             RUN_CI="true"
           
           fi
           
+          echo "★6
+          
           echo "run_ci=$RUN_CI" >> $GITHUB_OUTPUT
           echo "run_ci=<$RUN_CI>"
 
+          echo "★7
 
   #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
   #静的解析
