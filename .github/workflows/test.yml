@@ -28,6 +28,7 @@ jobs:
           if [[ "${{github.event_name}}" == "push" && "${{ github.ref_name }}" != "main" ]]; then
             
             echo "★1"
+            echo "◆◆$GITHUB_REF_NAME"
             
             PR=$(\
               curl \
