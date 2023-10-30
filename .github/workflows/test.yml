@@ -31,6 +31,7 @@ jobs:
             echo "◆◆$GITHUB_REF_NAME"
             
             ENCODE_REF_NAME=$(echo "${{ github.ref_name }}" | jq -sRr @uri)
+            echo "$ENCODE_REF_NAME"
             
             PR=$(\
               curl \
