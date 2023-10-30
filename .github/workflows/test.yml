@@ -43,6 +43,7 @@ jobs:
             else
 
               # 配列ではない場合(正しくプルリクが取得できていない)
+              echo "★★"
               echo "$PR"
               exit 1
             fi
