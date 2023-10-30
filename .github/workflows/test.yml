@@ -41,7 +41,7 @@ jobs:
             echo "★2"
             echo "$PR"
 
-            if echo "$PR" | jq . >/dev/null 2>&1 && echo "$PR" | jq -e 'type == "array"'; then
+            if echo "$PR" | jq . >/dev/null && echo "$PR" | jq -e 'type == "array"'; then
  
               echo "★4
               
