@@ -38,6 +38,7 @@ jobs:
             #if echo "$PR" | jq -e 'if type == "array" then true else false end'; then
             if echo "$PR" | jq 'type == "array"'; then
 
+              echo "★★"
               # 配列の場合、要素数が0かどうかをチェック
               #RUN_CI=$(echo "$PR" | jq -r 'if . | length == 0 then true else false end')
               RUN_CI=$(echo "$PR" | jq 'length == 0')
