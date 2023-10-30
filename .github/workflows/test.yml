@@ -30,7 +30,7 @@ jobs:
             echo "★1"
             echo "◆◆$GITHUB_REF_NAME"
             
-            ENCODE_REF_NAME=$(echo "${{ github.ref_name }}" | jq -sRr @uri)
+            ENCODE_REF_NAME=$(echo -n "${{ github.ref_name }}" | jq -Rr @uri)
             echo "$ENCODE_REF_NAME"
             
             PR=$(\
