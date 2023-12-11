@@ -12,4 +12,7 @@ jobs:
       - run: |
           echo "${{ github.sha }}"
           echo "123"
-      
+
+      - run: |
+        git rev-parse origin/main
+
