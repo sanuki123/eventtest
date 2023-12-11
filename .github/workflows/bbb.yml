@@ -13,9 +13,14 @@ jobs:
           echo "${{ github.sha }}"
           echo "12345"
 
-      - run: |
-        curl \
-        -sS \ 
-        -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-        https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/git/refs/heads/main | jq -r '.object.sha'
-
+      - 
+        run: |
+        
+          x=$( \
+            curl \
+            -sS \ 
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/git/refs/heads/main" \
+          )
+          
+          echo $x
