@@ -16,7 +16,7 @@ jobs:
     steps:
       - run: |
           echo "${{ github.sha }}"
-          echo "12345"
+          echo "123456"
 
       - 
         run: |
