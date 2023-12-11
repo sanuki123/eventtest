@@ -4,10 +4,15 @@ on:
   push:
     tags:
       - 'v[0-9]+'
+
       
 jobs:
   myjob:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
     steps:
       - run: |
           echo "${{ github.sha }}"
@@ -24,3 +29,7 @@ jobs:
           )
           
           echo $x
+          
+          a=$(echo $x | jq -r '.object.sha')
+          
+          echo "★a=$a"
