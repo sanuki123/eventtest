@@ -33,3 +33,9 @@ jobs:
           a=$(echo $x | jq -r '.object.sha')
           
           echo "★a=$a"
+
+      - 
+        run: |
+          echo "rag=${{ github.sha }}"
+          
+          
