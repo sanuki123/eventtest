@@ -14,5 +14,5 @@ jobs:
           echo "12345"
 
       - run: |
-        git rev-parse origin/main
+        curl -s https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/git/refs/heads/main | jq -r '.object.sha'
 
